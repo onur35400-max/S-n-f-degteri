@@ -1,0 +1,451 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sınıf Defteri</title>
+
+<style>
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  background: #f5f7fb;
+  color: #172033;
+}
+
+.container {
+  max-width: 900px;
+  margin: auto;
+  padding: 24px 18px 40px;
+}
+
+.header {
+  margin-bottom: 22px;
+}
+
+.header h1 {
+  margin: 0;
+  font-size: 30px;
+}
+
+.header p {
+  margin: 6px 0 0;
+  color: #697386;
+}
+
+.panel {
+  background: white;
+  border: 1px solid #e1e5ec;
+  border-radius: 16px;
+  padding: 18px;
+}
+
+.selects {
+  display: grid;
+  grid-template-columns: 1fr 1.4fr;
+  gap: 14px;
+}
+
+label {
+  display: block;
+  font-size: 12px;
+  font-weight: 700;
+  color: #697386;
+  margin-bottom: 7px;
+}
+
+select {
+  width: 100%;
+  padding: 13px;
+  border: 1px solid #d7dce5;
+  border-radius: 10px;
+  background: white;
+  font-size: 16px;
+}
+
+.week {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  margin: 18px 0;
+}
+
+.week button {
+  border: 1px solid #d9dee8;
+  background: white;
+  border-radius: 10px;
+  padding: 10px 14px;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.week-title {
+  font-weight: 700;
+  text-align: center;
+}
+
+.days {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 9px;
+}
+
+.day {
+  border: 1px solid #dfe3eb;
+  background: white;
+  border-radius: 12px;
+  padding: 14px 10px;
+  min-height: 90px;
+  text-align: left;
+  cursor: pointer;
+}
+
+.day.active {
+  border: 2px solid #315efb;
+  background: #f1f4ff;
+}
+
+.day-name {
+  font-weight: 700;
+  font-size: 14px;
+}
+
+.day-number {
+  margin-top: 7px;
+  font-size: 12px;
+  color: #697386;
+}
+
+.result {
+  margin-top: 18px;
+  background: white;
+  border: 1px solid #e1e5ec;
+  border-radius: 16px;
+  padding: 20px;
+}
+
+.result-title {
+  font-size: 12px;
+  font-weight: 700;
+  color: #697386;
+  text-transform: uppercase;
+  letter-spacing: .04em;
+}
+
+.code {
+  display: inline-block;
+  margin: 10px 0;
+  padding: 6px 8px;
+  background: #eef1f6;
+  border-radius: 6px;
+  font-family: monospace;
+  font-size: 12px;
+}
+
+.outcome {
+  font-size: 18px;
+  line-height: 1.5;
+  margin: 4px 0 18px;
+}
+
+.copy {
+  width: 100%;
+  border: 0;
+  border-radius: 11px;
+  padding: 14px;
+  background: #315efb;
+  color: white;
+  font-size: 15px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.copy.success {
+  background: #198754;
+}
+
+.warning {
+  margin-top: 10px;
+  font-size: 12px;
+  color: #7a8292;
+  line-height: 1.5;
+}
+
+@media (max-width: 650px) {
+  .container {
+    padding: 18px 14px 30px;
+  }
+
+  .selects {
+    grid-template-columns: 1fr;
+  }
+
+  .days {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .day:last-child {
+    grid-column: 1 / -1;
+  }
+
+  .header h1 {
+    font-size: 27px;
+  }
+
+  .week-title {
+    font-size: 14px;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+  <div class="header">
+    <h1>Sınıf Defteri</h1>
+    <p>Haftalık öğrenme çıktını bul, kopyala, deftere geçir.</p>
+  </div>
+
+  <div class="panel">
+
+    <div class="selects">
+
+      <div>
+        <label>SINIF</label>
+        <select id="grade">
+          <option value="1">1. Sınıf</option>
+          <option value="2">2. Sınıf</option>
+          <option value="3">3. Sınıf</option>
+          <option value="4">4. Sınıf</option>
+        </select>
+      </div>
+
+      <div>
+        <label>DERS</label>
+        <select id="subject">
+          <option value="matematik">Matematik</option>
+          <option value="turkce">Türkçe</option>
+          <option value="hayat">Hayat Bilgisi</option>
+          <option value="fen">Fen Bilimleri</option>
+          <option value="sosyal">Sosyal Bilgiler</option>
+          <option value="ingilizce">İngilizce</option>
+          <option value="muzik">Müzik</option>
+          <option value="gorsel">Görsel Sanatlar</option>
+          <option value="beden">Beden Eğitimi ve Oyun</option>
+          <option value="din">Din Kültürü ve Ahlak Bilgisi</option>
+        </select>
+      </div>
+
+    </div>
+
+  </div>
+
+  <div class="week">
+
+    <button onclick="previousWeek()">← Önceki</button>
+
+    <div class="week-title" id="weekTitle">
+      14–18 Eylül 2026
+    </div>
+
+    <button onclick="nextWeek()">Sonraki →</button>
+
+  </div>
+
+  <div class="days" id="days"></div>
+
+  <div class="result">
+
+    <div class="result-title">
+      Sınıf defterine yazılacak
+    </div>
+
+    <div class="code" id="code">
+      MAT.1.—
+    </div>
+
+    <div class="outcome" id="outcome">
+      Haftalık öğrenme çıktısı burada görünecek.
+    </div>
+
+    <button class="copy" id="copyButton" onclick="copyOutcome()">
+      Sınıf Defterine Kopyala
+    </button>
+
+    <div class="warning">
+      İlk sürüm prototipidir. Haftalık eşleştirmeler resmî yıllık plan verisi
+      bağlandığında otomatik olarak doldurulacaktır.
+    </div>
+
+  </div>
+
+</div>
+
+<script>
+
+let currentWeek = 0;
+let selectedDay = 0;
+
+const dayNames = [
+  "Pazartesi",
+  "Salı",
+  "Çarşamba",
+  "Perşembe",
+  "Cuma"
+];
+
+const grade = document.getElementById("grade");
+const subject = document.getElementById("subject");
+const days = document.getElementById("days");
+const weekTitle = document.getElementById("weekTitle");
+const code = document.getElementById("code");
+const outcome = document.getElementById("outcome");
+const copyButton = document.getElementById("copyButton");
+
+function getWeekStart() {
+
+  const date = new Date(2026, 8, 14);
+
+  date.setDate(date.getDate() + currentWeek * 7);
+
+  return date;
+}
+
+function formatDate(date) {
+
+  return date.toLocaleDateString("tr-TR", {
+    day: "numeric",
+    month: "long"
+  });
+
+}
+
+function renderWeek() {
+
+  const start = getWeekStart();
+
+  const end = new Date(start);
+  end.setDate(end.getDate() + 4);
+
+  weekTitle.textContent =
+    formatDate(start) + " – " + formatDate(end);
+
+  days.innerHTML = "";
+
+  for (let i = 0; i < 5; i++) {
+
+    const date = new Date(start);
+    date.setDate(start.getDate() + i);
+
+    const button = document.createElement("button");
+
+    button.className =
+      "day " + (i === selectedDay ? "active" : "");
+
+    button.innerHTML = `
+      <div class="day-name">${dayNames[i]}</div>
+      <div class="day-number">${formatDate(date)}</div>
+    `;
+
+    button.onclick = function() {
+
+      selectedDay = i;
+      renderWeek();
+      updateOutcome();
+
+    };
+
+    days.appendChild(button);
+  }
+
+  updateOutcome();
+}
+
+function updateOutcome() {
+
+  const selectedGrade = grade.value;
+  const selectedSubject = subject.value;
+
+  let subjectName = subject.options[
+    subject.selectedIndex
+  ].text;
+
+  let prefix = "—";
+
+  if (selectedSubject === "matematik") {
+    prefix = "MAT." + selectedGrade + ".—";
+  }
+
+  if (selectedSubject === "turkce") {
+    prefix = "T.—." + selectedGrade + ".—";
+  }
+
+  code.textContent = prefix;
+
+  outcome.textContent =
+    selectedGrade + ". sınıf " +
+    subjectName +
+    " için seçilen haftanın öğrenme çıktısı burada gösterilecek.";
+
+}
+
+function previousWeek() {
+
+  currentWeek--;
+
+  renderWeek();
+
+}
+
+function nextWeek() {
+
+  currentWeek++;
+
+  renderWeek();
+
+}
+
+async function copyOutcome() {
+
+  try {
+
+    await navigator.clipboard.writeText(
+      outcome.textContent
+    );
+
+    copyButton.textContent = "Kopyalandı ✓";
+    copyButton.classList.add("success");
+
+    setTimeout(function() {
+
+      copyButton.textContent =
+        "Sınıf Defterine Kopyala";
+
+      copyButton.classList.remove("success");
+
+    }, 1500);
+
+  } catch (error) {
+
+    alert("Metin kopyalanamadı.");
+
+  }
+
+}
+
+grade.addEventListener("change", updateOutcome);
+subject.addEventListener("change", updateOutcome);
+
+renderWeek();
+
+</script>
+
+</body>
+</html>
